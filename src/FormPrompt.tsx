@@ -9,7 +9,7 @@ import { useLocation, useNavigate } from "react-router";
  * @param {*} history The History value from react-router
  * @returns {JSX.Element | null} The FormPrompt component.
  */
-export const createFormPromter = (history : any) => {
+export const rawCreateFormPromter = (history : any) => {
   const
     useBlocker = (blocker : any, when = true) => {
       React.useEffect(() => {

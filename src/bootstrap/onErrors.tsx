@@ -101,7 +101,7 @@ const
   };
 
 export const 
-  onErrors = (cb : (node : any) => any) =>  (errors : Immutable.Map<string, any>) => {
+  rawOnErrors = (cb : (node : any) => any) =>  (errors : Immutable.Map<string, any>) => {
     if (errors.size === 0) {
       return;
     }
