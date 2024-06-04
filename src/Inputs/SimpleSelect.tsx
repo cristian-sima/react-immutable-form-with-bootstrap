@@ -1,7 +1,7 @@
 import Immutable from "immutable";
 import React from "react";
-import { FieldRendererProps } from "../types";
-import { getWords } from "../words";
+import { FieldRendererProps } from "react-immutable-form/types";
+import { getWords } from "react-immutable-form/words";
 
 export type SimpleSelectProps = FieldRendererProps<HTMLSelectElement> & {
   readonly customClass?: any;

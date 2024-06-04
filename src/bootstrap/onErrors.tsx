@@ -1,7 +1,7 @@
 
 import Immutable from "immutable";
 import React from "react";
-import { getWords } from "../words";
+import { getWords } from "react-immutable-form/words";
 
 type Data = Immutable.Map<string, any> | Immutable.List<Immutable.Map<string, any>>;
 

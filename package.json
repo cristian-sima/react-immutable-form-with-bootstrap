@@ -1,7 +1,7 @@
 {
-  "version": "1.0.6",
-  "name": "react-immutable-form",
-  "description": "react-immutable-form the [i]mmutable form library for react - using hooks",
+  "version": "1.0.1",
+  "name": "react-immutable-form-with-bootstrap",
+  "description": "react-immutable-form-with-bootstrap the [i]mmutable form library for react - using hooks",
   "types": "./dist/index.d.ts",
   "scripts": {
     "load": "npm run intern-pre && cd dist && npm run ts && npm run intern-copy && npm publish",
@@ -113,6 +113,7 @@
     "react": "^17.0.2",
     "react-datepicker": "^4.24.0",
     "react-dom": "^17.0.2",
+    "react-immutable-form": "^1.0.6",
     "react-router": "^6.22.3",
     "vitest": "^1.4.0",
     "x25": "^17.5.6"

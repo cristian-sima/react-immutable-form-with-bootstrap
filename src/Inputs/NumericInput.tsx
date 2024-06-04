@@ -2,8 +2,8 @@
 
 import Immutable from "immutable";
 import React from "react";
+import { HandleBlurFunc, HandleChangeFunc } from "react-immutable-form/types";
 import { formatZeroValue } from "x25/utility";
-import { HandleBlurFunc, HandleChangeFunc } from "../types";
 import { SimpleInputProps } from "./SimpleInput";
 import { clearFloatOnBlur, floatToEnglishComma, getFloatValueToStore, isFloat } from "./util-numeric";
 

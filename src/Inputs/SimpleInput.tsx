@@ -1,6 +1,6 @@
 import Immutable from "immutable";
 import React from "react";
-import { FieldRendererProps } from "../types";
+import { FieldRendererProps } from "react-immutable-form/types";
 
 export type SimpleInputProps = FieldRendererProps<HTMLInputElement> & {
   readonly customClass?: any;
