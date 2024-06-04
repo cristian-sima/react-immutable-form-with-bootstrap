@@ -1,0 +1,120 @@
+{
+  "version": "1.0.6",
+  "name": "react-immutable-form",
+  "description": "react-immutable-form the [i]mmutable form library for react - using hooks",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "load": "npm run intern-pre && cd dist && npm run ts && npm run intern-copy && npm publish",
+    "load-beta": "npm run intern-pre && cd dist && npm run ts && npm run intern-copy && npm publish --tag beta",
+    "eslint": "eslint --ext .tsx,.ts src --fix",
+    "intern-pre": "npm run eslint && npm run intern-clean && npm run intern-build",
+    "intern-build-scss": "node-sass --output-style compressed src -o dist",
+    "intern-copy": " copy package.json dist",
+    "lint": "npm run ts:check & npm run eslint",
+    "intern-build": "npm run intern-build-scss",
+    "intern-clean": "rimraf dist dist",
+    "intern-test": "vitest",
+    "check": "node script/check & npm run depcheck & npm run check:npm-check",
+    "check:npm-check": "npm-check -u -i \"{rc-tooltip,react,react-dom}\" --specials=bin,eslint,babel,webpack",
+    "depcheck": "depcheck --ignores=@docusaurus/react-loadable,webpack-cli,@hot-loader/react-dom --ignore-patterns=server,node_modules,tmp,fonts",
+    "check:global": "npm-check -gu",
+    "ts:check": "tsc --noEmit",
+    "ts": "tsc --declaration"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cristian-sima/iForm.git"
+  },
+  "keywords": [],
+  "author": "SC SIDEWORK SRL",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cristian-sima/iForm/issues"
+  },
+  "homepage": "https://github.com/cristian-sima/iForm#readme",
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ],
+      "@babel/preset-typescript",
+      "@babel/preset-react"
+    ],
+    "env": {
+      "production": {
+        "plugins": [
+          "@babel/plugin-syntax-dynamic-import",
+          "@babel/plugin-proposal-class-properties",
+          "@babel/plugin-proposal-export-default-from",
+          "@babel/plugin-transform-modules-commonjs",
+          "@babel/plugin-transform-react-constant-elements",
+          "@babel/plugin-transform-react-inline-elements",
+          "@babel/plugin-transform-typescript",
+          "transform-react-remove-prop-types"
+        ]
+      },
+      "development": {
+        "plugins": [
+          "@babel/plugin-syntax-dynamic-import",
+          "@babel/plugin-proposal-class-properties",
+          "@babel/plugin-proposal-export-default-from",
+          "@babel/plugin-transform-modules-commonjs"
+        ]
+      }
+    }
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-proposal-export-default-from": "^7.23.3",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-modules-commonjs": "^7.23.3",
+    "@babel/plugin-transform-react-constant-elements": "^7.23.3",
+    "@babel/plugin-transform-react-inline-elements": "^7.23.3",
+    "@babel/plugin-transform-typescript": "^7.23.5",
+    "@babel/preset-env": "^7.23.5",
+    "@babel/preset-react": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
+    "@types/react-datepicker": "^6.2.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "copy": "^0.3.2",
+    "css-loader": "^6.8.1",
+    "depcheck": "^1.4.7",
+    "eslint": "^8.54.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-react": "^7.33.2",
+    "node-sass": "^9.0.0",
+    "npm-check": "^6.0.1",
+    "style-loader": "^3.3.3",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.2",
+    "webpack": "^5.89.0"
+  },
+  "overrides": {
+    "react-datepicker": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    }
+  },
+  "dependencies": {
+    "@docusaurus/react-loadable": "^5.5.2",
+    "date-fns": "^3.6.0",
+    "immutable": "^4.3.4",
+    "react": "^17.0.2",
+    "react-datepicker": "^4.24.0",
+    "react-dom": "^17.0.2",
+    "react-router": "^6.22.3",
+    "vitest": "^1.4.0",
+    "x25": "^17.5.6"
+  }
+}
