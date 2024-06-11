@@ -13,7 +13,7 @@ export type DateTemplatePropTypes = FieldRendererProps<HTMLInputElement> & {
 export const 
   DateInputInner = (props: DateTemplatePropTypes) => {
     const
-      { hideError, customClass, name, data = Immutable.Map() } = props,
+      { hideError, idFileName, customClass, indexFileName, data = Immutable.Map() } = props,
       renderCount = React.useRef(0),
       value = data.get("value") || "",
       meta = data.get("meta") || Immutable.Map(),
@@ -42,21 +42,21 @@ export const
 
       handleFocus = (event : React.FocusEvent<HTMLInputElement, Element>) => {
         if (typeof props.customOnFocus === "function") {
-          props.customOnFocus(event, props.handleFocus, name);
+          props.customOnFocus(event, props.handleFocus, idFileName, indexFileName);
         } else {
-          props.handleFocus(name);
+          props.handleFocus(idFileName, indexFileName);
         }
       }, 
       handleBlur = (event: React.FocusEvent<HTMLInputElement, Element>) => {
         if (typeof props.customOnBlur === "function") {
-          props.customOnBlur(event, props.handleBlur, name);
+          props.customOnBlur(event, props.handleBlur, idFileName, indexFileName);
         } else {
-          props.handleBlur(name);
+          props.handleBlur(idFileName, indexFileName);
         }
       },
       handleChange =  (date: Date) => {
         const dateOnChange = () => {
-          props.handleChange(name, dateToGoFormat(date));
+          props.handleChange(idFileName, dateToGoFormat(date), indexFileName);
         };
 
         if (typeof props.customOnChange === "function") {
@@ -76,9 +76,9 @@ export const
         <DatePicker
           className={theClass}
           dateFormat="dd.MM.yyyy"
-          id={props.name}
+          id={indexFileName}
           locale={ro}
-          name={props.name}
+          name={indexFileName}
           onBlur={handleBlur}
           onChange={handleChange}
           onFocus={handleFocus}

@@ -1,8 +1,9 @@
 
 
+
 import Immutable from "immutable";
 import React from "react";
-import { HandleBlurFunc, HandleChangeFunc } from "react-immutable-form/types";
+import { HandleBlurFunc, HandleChangeFunc, ID_FieldName, INDEX_FieldName } from "react-immutable-form/types";
 import { formatZeroValue } from "x25/utility";
 import { SimpleInputProps } from "./SimpleInput";
 import { clearFloatOnBlur, floatToEnglishComma, getFloatValueToStore, isFloat } from "./util-numeric";
@@ -11,8 +12,9 @@ type handleNumericBlurFunc = () => any;
 type handleNumericChangeFunc = () => any;
 
 export type InputTemplatePropTypes = SimpleInputProps & {
-  readonly customOnBlur?: (event : React.FocusEvent<HTMLInputElement, Element>, handleNumericBlur : handleNumericBlurFunc, handleBlur: HandleBlurFunc, name: string ) => any;
-  readonly customOnChange?: (event : React.ChangeEvent<HTMLInputElement>, handleNumericChange : handleNumericChangeFunc, handleChange: HandleChangeFunc, name: string ) => any;
+  readonly customOnBlur?: (event : React.FocusEvent<HTMLInputElement, Element>, handleNumericBlur : handleNumericBlurFunc, handleBlur: HandleBlurFunc, idFileName: ID_FieldName, indexFileName : INDEX_FieldName) => any;
+
+  readonly customOnChange?: (event : React.ChangeEvent<HTMLInputElement>, handleNumericChange : handleNumericChangeFunc, handleChange: HandleChangeFunc, idFileName: ID_FieldName, indexFileName : INDEX_FieldName) => any;
 }
 
 export type formatValueFunc =  (raw: any, optional?: boolean) => string;
@@ -20,7 +22,7 @@ export type formatValueFunc =  (raw: any, optional?: boolean) => string;
 const NumericInputInner = (props: InputTemplatePropTypes) => {
   const
     renderCount = React.useRef(0),
-    { componentProps = Immutable.Map(), customClass, name, data = Immutable.Map() } = props,
+    { idFileName, indexFileName, componentProps = Immutable.Map(), customClass, data = Immutable.Map() } = props,
 
     meta = data.get("meta") || Immutable.Map(),
     inputValue = data.get("value") || "",
@@ -51,7 +53,7 @@ const NumericInputInner = (props: InputTemplatePropTypes) => {
         valueToStore = getFloatValueToStore(targetValue);
       }
 
-      props.handleChange(name, valueToStore);
+      props.handleChange(idFileName, valueToStore, indexFileName);
     },
     onBlur = (event: React.FocusEvent<HTMLInputElement, Element>) => {
       const numericHandleOnBlur = () => {
@@ -63,11 +65,11 @@ const NumericInputInner = (props: InputTemplatePropTypes) => {
           updateNumericValue(newValue);
         }
 
-        props.handleBlur(name);
+        props.handleBlur(idFileName, indexFileName);
       };
 
       if (typeof props.customOnBlur === "function") {
-        props.customOnBlur(event, numericHandleOnBlur, props.handleBlur, name);
+        props.customOnBlur(event, numericHandleOnBlur, props.handleBlur, idFileName, indexFileName);
       } else {
         numericHandleOnBlur();
       }
@@ -78,16 +80,16 @@ const NumericInputInner = (props: InputTemplatePropTypes) => {
           updateNumericValue(event.target.value);
         };
 
-        props.customOnChange(event, wrapper, props.handleChange, name);
+        props.customOnChange(event, wrapper, props.handleChange, idFileName, indexFileName);
       } else {
         updateNumericValue(event.target.value);
       }
     },
     onFocus = (event : React.FocusEvent<HTMLInputElement, Element>) => {
       if (typeof props.customOnFocus === "function") {
-        props.customOnFocus(event, props.handleFocus, name);
+        props.customOnFocus(event, props.handleFocus, idFileName, indexFileName);
       } else {
-        props.handleFocus(name);
+        props.handleFocus(idFileName, indexFileName);
       }
     };
     
@@ -112,8 +114,8 @@ const NumericInputInner = (props: InputTemplatePropTypes) => {
         <input
           className={theClass}
           disabled={props.disabled}
-          id={name}
-          name={name}
+          id={indexFileName}
+          name={indexFileName}
           onBlur={onBlur}
           onChange={onChange}
           onFocus={onFocus}
@@ -137,8 +139,8 @@ const NumericInputInner = (props: InputTemplatePropTypes) => {
         <input
           className={theClass}
           disabled={props.disabled}
-          id={name}
-          name={name}
+          id={indexFileName}
+          name={indexFileName}
           onBlur={onBlur}
           onChange={onChange}
           onFocus={onFocus}

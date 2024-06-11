@@ -12,16 +12,17 @@ export type CaptchaBoxProps = FieldRendererProps<HTMLInputElement> & {
 const CaptchaBoxInner = (props: CaptchaBoxProps) => {
   const {
       left, right, words, id,
-      name, data = Immutable.Map(),
+      idFileName,
+      indexFileName, data = Immutable.Map(),
+      disabled,
+      hideError,
+      elementProps,
       handleBlur,
       handleChange,
       handleFocus,
       customOnFocus,
       customOnBlur,
       customOnChange,
-      disabled,
-      hideError,
-      elementProps,
     } = props,
 
     value = data.get("value") || "",
@@ -33,25 +34,25 @@ const CaptchaBoxInner = (props: CaptchaBoxProps) => {
 
     onFocus = (event: React.FocusEvent<HTMLInputElement>) => {
       if (typeof customOnFocus === "function") {
-        customOnFocus(event, handleFocus, name);
+        customOnFocus(event, handleFocus, idFileName, indexFileName);
       } else {
-        handleFocus(name);
+        handleFocus(idFileName, indexFileName);
       }
     },
 
     onBlur = (event: React.FocusEvent<HTMLInputElement>) => {
       if (typeof customOnBlur === "function") {
-        customOnBlur(event, handleBlur, name);
+        customOnBlur(event, handleBlur, idFileName, indexFileName);
       } else {
-        handleBlur(name);
+        handleBlur(idFileName, indexFileName);
       }
     },
 
     onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       if (typeof customOnChange === "function") {
-        customOnChange(event, handleChange, name);
+        customOnChange(event, handleChange, idFileName, indexFileName);
       } else {
-        handleChange(name, event.target.value);
+        handleChange(idFileName, event.target.value, indexFileName);
       }
     },
 
@@ -61,7 +62,7 @@ const CaptchaBoxInner = (props: CaptchaBoxProps) => {
     <div className="form-group row d-flex">
       <label
         className={`${left ? `${left} align-self-center` : "col-md-4 text-md-end"} form-control-label align-self-center`}
-        htmlFor={name}>
+        htmlFor={indexFileName}>
         {`${words.CaptchaVerify} `}
         <i className="fa fa-info-circle" />
       </label>
@@ -77,8 +78,8 @@ const CaptchaBoxInner = (props: CaptchaBoxProps) => {
         <input
           className={theClass}
           disabled={disabled}
-          id={name}
-          name={name}
+          id={indexFileName}
+          name={indexFileName}
           onBlur={onBlur}
           onChange={onChange}
           onFocus={onFocus}

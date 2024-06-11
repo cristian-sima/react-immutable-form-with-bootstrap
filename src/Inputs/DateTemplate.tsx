@@ -16,7 +16,7 @@ const DateTemplateInner = (props: DateTemplatePropTypes) => {
 
   return (
     <div className="row">
-      <label className={leftClass} htmlFor={props.name}>
+      <label className={leftClass} htmlFor={props.indexFileName}>
         {label}
       </label>
       <div className={rightClass}>

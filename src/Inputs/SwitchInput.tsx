@@ -9,7 +9,7 @@ export type SwitchInputProps = FieldRendererProps<HTMLInputElement> & {
 const 
   SwitchInputInner = (props: SwitchInputProps) => {
     const
-      { customClass, name, data = Immutable.Map(), handleBlur, handleChange, handleFocus } = props,
+      { customClass, idFileName, indexFileName, data = Immutable.Map(), handleBlur, handleChange, handleFocus } = props,
       renderCount = React.useRef(0),
       value = data.get("value"),
       checked = value === true,
@@ -18,25 +18,25 @@ const
 
       onFocus = (event : React.FocusEvent<HTMLInputElement, Element>) => {
         if (typeof props.customOnFocus === "function") {
-          props.customOnFocus(event, handleFocus, name);
+          props.customOnFocus(event, handleFocus,  idFileName, indexFileName);
         } else {
-          handleFocus(name);
+          handleFocus( idFileName, indexFileName);
         }
       }, 
       onBlur = (event: React.FocusEvent<HTMLInputElement, Element>) => {
         if (typeof props.customOnBlur === "function") {
-          props.customOnBlur(event, handleBlur, name);
+          props.customOnBlur(event, handleBlur,  idFileName, indexFileName);
         } else {
-          handleBlur(name);
+          handleBlur( idFileName, indexFileName);
         }
       },
       onChange = (event: React.ChangeEvent<HTMLInputElement> ) => {
         const theValue = event.target.checked === true;
         
         if (typeof props.customOnChange === "function") {
-          props.customOnChange(event, handleChange, name);
+          props.customOnChange(event, handleChange,  idFileName, indexFileName);
         } else {
-          handleChange(name, theValue);
+          handleChange( idFileName, theValue, indexFileName);
         }
       },
       hasError = typeof theError !== "undefined",
@@ -55,8 +55,8 @@ const
             checked={checked}
             className={theClass}
             disabled={props.disabled}
-            id={name}
-            name={name}
+            id={indexFileName}
+            name={indexFileName}
             onBlur={onBlur}
             onChange={onChange}
             onFocus={onFocus}
@@ -64,7 +64,7 @@ const
             value={value}
             {...props.elementProps}
           />
-          <label className="form-check-label" htmlFor={name}>
+          <label className="form-check-label" htmlFor={indexFileName}>
             {props.componentProps?.get("label")}
           </label>
           {

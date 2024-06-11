@@ -9,7 +9,7 @@ export type SimpleTextareaProps = FieldRendererProps<HTMLTextAreaElement> & {
 const 
   SimpleTextareaInner = (props: SimpleTextareaProps) => {
     const
-      { customClass, name, data = Immutable.Map(), handleBlur, handleChange, handleFocus } = props,
+      { customClass, idFileName, indexFileName, data = Immutable.Map(), handleBlur, handleChange, handleFocus } = props,
       renderCount = React.useRef(0),
       value = data.get("value") || "",
       meta = data.get("meta") || Immutable.Map(),
@@ -17,23 +17,23 @@ const
       isTouched = meta.get("isTouched") as boolean,
       onFocus = (event : React.FocusEvent<HTMLTextAreaElement, Element>) => {
         if (typeof props.customOnFocus === "function") {
-          props.customOnFocus(event, handleFocus, name);
+          props.customOnFocus(event, handleFocus, idFileName, indexFileName);
         } else {
-          handleFocus(name);
+          handleFocus(idFileName, indexFileName);
         }
       }, 
       onBlur = (event: React.FocusEvent<HTMLTextAreaElement, Element>) => {
         if (typeof props.customOnBlur === "function") {
-          props.customOnBlur(event, handleBlur, name);
+          props.customOnBlur(event, handleBlur, idFileName, indexFileName);
         } else {
-          handleBlur(name);
+          handleBlur(idFileName, indexFileName);
         }
       },
       onChange = (event: React.ChangeEvent<HTMLTextAreaElement> ) => {
         if (typeof props.customOnChange === "function") {
-          props.customOnChange(event, handleChange, name);
+          props.customOnChange(event, handleChange, idFileName, indexFileName);
         } else {
-          handleChange(name, event.target.value);
+          handleChange(idFileName, event.target.value, indexFileName);
         }
       },
       hasError = typeof theError !== "undefined",
@@ -50,8 +50,8 @@ const
         <textarea
           className={theClass}
           disabled={props.disabled}
-          id={name}
-          name={name}
+          id={indexFileName}
+          name={indexFileName}
           onBlur={onBlur as any}
           onChange={onChange as any}
           onFocus={onFocus as any}

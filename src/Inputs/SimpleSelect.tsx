@@ -36,7 +36,7 @@ const
   SimpleSelectInner = (props: SimpleSelectProps) => {
     const {
         customClass,
-        name,
+        indexFileName, idFileName,
         data = Immutable.Map(),
         handleBlur,
         handleChange,
@@ -52,17 +52,17 @@ const
 
       onFocus = (event: React.FocusEvent<HTMLSelectElement, Element>) => {
         if (typeof props.customOnFocus === "function") {
-          props.customOnFocus(event, handleFocus, name);
+          props.customOnFocus(event, handleFocus, idFileName, indexFileName);
         } else {
-          handleFocus(name);
+          handleFocus(idFileName, indexFileName);
         }
       },
 
       onBlur = (event: React.FocusEvent<HTMLSelectElement, Element>) => {
         if (typeof props.customOnBlur === "function") {
-          props.customOnBlur(event, handleBlur, name);
+          props.customOnBlur(event, handleBlur, idFileName, indexFileName);
         } else {
-          handleBlur(name);
+          handleBlur(idFileName, indexFileName);
         }
       },
 
@@ -70,9 +70,9 @@ const
         const theValue = event.target.value;
 
         if (typeof props.customOnChange === "function") {
-          props.customOnChange(event, handleChange, name);
+          props.customOnChange(event, handleChange, idFileName, indexFileName);
         } else {
-          handleChange(name, theValue);
+          handleChange(idFileName, theValue, indexFileName);
         }
       },
 
@@ -93,8 +93,8 @@ const
         <select
           className={theClass}
           disabled={props.disabled}
-          id={name}
-          name={name}
+          id={indexFileName}
+          name={indexFileName}
           onBlur={onBlur}
           onChange={onChange}
           onFocus={onFocus}
