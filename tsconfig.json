@@ -37,7 +37,9 @@
       //   "node_modules/@docusaurus/react-loadable"
       // ]
     },
-    "types": []
+    "types": [
+      "node"
+    ]
     // Ensure that Babel can safely transpile files in the TypeScript project
     /* Additional Checks */
     /* Advanced Options */
