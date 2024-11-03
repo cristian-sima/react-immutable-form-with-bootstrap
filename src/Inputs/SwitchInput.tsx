@@ -1,8 +1,9 @@
 import Immutable from "immutable";
 import React from "react";
 import { FieldRendererProps } from "react-immutable-form/types";
+import RenderCounter from "../RenderCount";
 
-export type SwitchInputProps = FieldRendererProps<HTMLInputElement> & {
+type SwitchInputProps = FieldRendererProps<HTMLInputElement> & {
   readonly customClass?: any;
 };
 
@@ -10,7 +11,6 @@ const
   SwitchInputInner = (props: SwitchInputProps) => {
     const
       { customClass, idFileName, indexFileName, data = Immutable.Map(), handleBlur, handleChange, handleFocus } = props,
-      renderCount = React.useRef(0),
       value = data.get("value"),
       checked = value === true,
       meta = data.get("meta") || Immutable.Map(),
@@ -43,13 +43,9 @@ const
       theClass = `${hasError ? "is-invalid" : ""} ${customClass ? customClass : ""} form-check-input`,
       wrapperClassName = `form-check ${props.componentProps?.get("checkbox") ? "": "form-switch"}`;
 
-    React.useEffect(() => {
-      renderCount.current += 1;
-    });
-
     return (
       <>
-        <span className="badge text-bg-primary">{renderCount.current}</span>
+        {process.env.NODE_ENV !== "production" && (props.showRenderCounts ? <RenderCounter /> : null)}
         <div className={wrapperClassName}>
           <input
             checked={checked}
@@ -69,12 +65,16 @@ const
           </label>
           {
             !props.hideError && hasError ? (
-              <span className="text-danger">{theError}</span>
+              <span className="text-danger ms-1 small">
+                <i className="fa fa-exclamation-triangle me-1" />
+                {theError}
+              </span>
             ) : null 
           }
         </div>
       </>
     );
-  };
+  },
+  SwitchInput = React.memo(SwitchInputInner);
 
-export const RawSwitchInput = React.memo(SwitchInputInner);
+export default SwitchInput;

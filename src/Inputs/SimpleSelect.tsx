@@ -1,7 +1,10 @@
 import Immutable from "immutable";
 import React from "react";
+import { language } from "react-immutable-form";
 import { FieldRendererProps } from "react-immutable-form/types";
-import { getWords } from "react-immutable-form/words";
+import RenderCounter from "../RenderCount";
+
+const { getWords } = language;
 
 export type SimpleSelectProps = FieldRendererProps<HTMLSelectElement> & {
   readonly customClass?: any;
@@ -11,6 +14,8 @@ type ImmutableListOfOptions = {
   readonly list: Immutable.List<Immutable.Map<string, any>>;
   readonly valueKey:string;
   readonly nameKey: string;
+  readonly isImmutable?: boolean;
+  readonly showEmptyOption?: boolean;
 }
 
 const 
@@ -67,12 +72,14 @@ const
       },
 
       onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const theValue = event.target.value;
-
         if (typeof props.customOnChange === "function") {
           props.customOnChange(event, handleChange, idFileName, indexFileName);
         } else {
-          handleChange(idFileName, theValue, indexFileName);
+          const 
+            rawValue = event.target.value,
+            parsedValue = typeof props.parse === "function" ? props.parse(rawValue) : rawValue; 
+
+          handleChange(idFileName, parsedValue, indexFileName);
         }
       },
 
@@ -90,7 +97,9 @@ const
 
     return (
       <>
+        {process.env.NODE_ENV !== "production" && (props.showRenderCounts ? <RenderCounter /> : null)}
         <select
+          {...props.elementProps}
           className={theClass}
           disabled={props.disabled}
           id={indexFileName}
@@ -125,4 +134,4 @@ const
     );
   };
 
-export const RawSimpleSelect = React.memo(SimpleSelectInner);
+export default React.memo(SimpleSelectInner);

@@ -2,7 +2,7 @@ import Immutable from "immutable";
 import React from "react";
 import { FieldRendererProps } from "react-immutable-form/types";
 
-export type CaptchaBoxProps = FieldRendererProps<HTMLInputElement> & {
+type CaptchaBoxProps = FieldRendererProps<HTMLInputElement> & {
   readonly left?: string;
   readonly right?: string;
   readonly words: { CaptchaVerify: string; CaptchaTypeNumbers: string };
@@ -95,4 +95,4 @@ const CaptchaBoxInner = (props: CaptchaBoxProps) => {
   );
 };
 
-export const RawCaptchaBox = React.memo(CaptchaBoxInner);
+export default React.memo(CaptchaBoxInner);

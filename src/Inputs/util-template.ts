@@ -1,8 +1,10 @@
-export const 
+const 
   TEMPLATES_CLASSES = {
     LEFT  : "col-md-4 text-md-end",
     RIGHT : "col-md-8",
-  },
+  };
+
+export const 
   getTemplateInfo = (componentProps : Immutable.Map<string, any>) => {
     const 
       leftPart = componentProps && componentProps.get("left") || TEMPLATES_CLASSES.LEFT,

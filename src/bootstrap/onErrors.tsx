@@ -1,7 +1,9 @@
 
 import Immutable from "immutable";
 import React from "react";
-import { getWords } from "react-immutable-form/words";
+import { language } from "react-immutable-form";
+
+const { getWords } = language;
 
 type Data = Immutable.Map<string, any> | Immutable.List<Immutable.Map<string, any>>;
 
@@ -98,9 +100,7 @@ const
       }, Immutable.Map<string, any>());
     } 
     return input;
-  };
-
-export const 
+  },
   rawOnErrors = (cb : (node : any) => any) =>  (errors : Immutable.Map<string, any>) => {
     if (errors.size === 0) {
       return;
@@ -125,3 +125,5 @@ export const
 
     cb(result);
   };
+
+export default rawOnErrors;

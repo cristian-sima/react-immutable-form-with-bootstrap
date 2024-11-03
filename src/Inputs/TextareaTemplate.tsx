@@ -2,8 +2,8 @@
 
 import Immutable from "immutable";
 import React from "react";
-import { RawSimpleTextarea, SimpleTextareaProps } from "./SimpleTextarea";
-import { getTemplateInfo } from "./util";
+import SimpleTextarea, { SimpleTextareaProps } from "./SimpleTextarea";
+import { getTemplateInfo } from "./util-template";
 
 const TextareaTemplateInner = (props: SimpleTextareaProps) => {
   const
@@ -13,15 +13,15 @@ const TextareaTemplateInner = (props: SimpleTextareaProps) => {
     ), [componentProps]);
 
   return (
-    <div className="row">
+    <div className="row mt-2">
       <label className={leftClass} htmlFor={props.indexFileName}>
         {label}
       </label>
       <div className={rightClass}>
-        <RawSimpleTextarea {...props} />
+        <SimpleTextarea {...props} />
       </div>
     </div>
   );
 };
 
-export const RawTextareaTemplate = React.memo(TextareaTemplateInner);
+export default  React.memo(TextareaTemplateInner);

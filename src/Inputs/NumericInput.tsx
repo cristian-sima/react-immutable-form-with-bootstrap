@@ -1,12 +1,15 @@
 
 
-
 import Immutable from "immutable";
 import React from "react";
 import { HandleBlurFunc, HandleChangeFunc, ID_FieldName, INDEX_FieldName } from "react-immutable-form/types";
 import { formatZeroValue } from "x25/utility";
+import RenderCounter from "../RenderCount";
 import { SimpleInputProps } from "./SimpleInput";
-import { clearFloatOnBlur, floatToEnglishComma, getFloatValueToStore, isFloat } from "./util-numeric";
+import numericOperations from "./util-numeric";
+
+const   
+  { clearFloatOnBlur, floatToEnglishComma, getFloatValueToStore, isFloat } = numericOperations;
 
 type handleNumericBlurFunc = () => any;
 type handleNumericChangeFunc = () => any;
@@ -17,13 +20,16 @@ export type InputTemplatePropTypes = SimpleInputProps & {
   readonly customOnChange?: (event : React.ChangeEvent<HTMLInputElement>, handleNumericChange : handleNumericChangeFunc, handleChange: HandleChangeFunc, idFileName: ID_FieldName, indexFileName : INDEX_FieldName) => any;
 }
 
-export type formatValueFunc =  (raw: any, optional?: boolean) => string;
+type formatValueFunc =  (raw: any, optional?: boolean) => string;
 
 const NumericInputInner = (props: InputTemplatePropTypes) => {
   const
-    renderCount = React.useRef(0),
-    { idFileName, indexFileName, componentProps = Immutable.Map(), customClass, data = Immutable.Map() } = props,
+    { idFileName, indexFileName, componentProps = Immutable.Map<string, any>(), data = Immutable.Map() } = props,
 
+    customClass = React.useMemo(() => (
+      props.componentProps?.get("customClass") || ""
+    ), [props.componentProps]),
+    
     meta = data.get("meta") || Immutable.Map(),
     inputValue = data.get("value") || "",
 
@@ -37,7 +43,7 @@ const NumericInputInner = (props: InputTemplatePropTypes) => {
     
     hasError = typeof theError !== "undefined",
     showError = isTouched && hasError,
-    theClass = `${showError ? "is-invalid" : ""} ${customClass ? customClass : ""} form-control`,
+    theClass = `form-control ${showError ? "is-invalid" : ""} ${customClass ? customClass : ""}`,
     
     [value, setValue] = React.useState(inputValue),
 
@@ -103,14 +109,11 @@ const NumericInputInner = (props: InputTemplatePropTypes) => {
     }
   }, [data, theError]);
 
-  React.useEffect(() => {
-    renderCount.current += 1;
-  });
 
   if (noCurrency) {
     return (
       <>
-        <span className="badge text-bg-primary">{renderCount.current}</span>
+        {process.env.NODE_ENV !== "production" && (props.showRenderCounts ? <RenderCounter /> : null)}
         <input
           className={theClass}
           disabled={props.disabled}
@@ -135,7 +138,7 @@ const NumericInputInner = (props: InputTemplatePropTypes) => {
   return (
     <>
       <div className="input-group">
-        <span className="badge text-bg-primary input-group-text">{renderCount.current}</span>
+        {process.env.NODE_ENV !== "production" && (props.showRenderCounts ? <RenderCounter /> : null)}
         <input
           className={theClass}
           disabled={props.disabled}
@@ -161,4 +164,4 @@ const NumericInputInner = (props: InputTemplatePropTypes) => {
   );
 };
 
-export const RawNumericInput = React.memo(NumericInputInner);
+export default React.memo(NumericInputInner);

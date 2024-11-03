@@ -8,9 +8,10 @@
     "load-beta": "npm run intern-pre && cd dist && npm run ts && npm run intern-copy && npm publish --tag beta",
     "eslint": "eslint --ext .tsx,.ts src --fix",
     "intern-pre": "npm run eslint && npm run intern-clean && npm run intern-build",
+    "knip": "knip --include-libs",
     "intern-build-scss": "node-sass --output-style compressed src -o dist",
     "intern-copy": " copy package.json dist",
-    "lint": "npm run ts:check & npm run eslint",
+    "lint": "npm run knip &&  npm run ts:check & npm run eslint",
     "intern-build": "npm run intern-build-scss",
     "intern-clean": "rimraf dist dist",
     "intern-test": "vitest",
@@ -82,6 +83,7 @@
     "@babel/preset-env": "^7.23.5",
     "@babel/preset-react": "^7.23.3",
     "@babel/preset-typescript": "^7.23.3",
+    "@types/node": "^22.8.7",
     "@types/react-datepicker": "^6.2.0",
     "@typescript-eslint/eslint-plugin": "^6.13.1",
     "@typescript-eslint/parser": "^6.13.1",
@@ -110,11 +112,13 @@
   "dependencies": {
     "date-fns": "^3.6.0",
     "immutable": "^4.3.4",
+    "knip": "^5.36.2",
     "react": "^17.0.2",
     "react-datepicker": "^4.24.0",
     "react-dom": "^17.0.2",
-    "react-immutable-form": "^1.0.17",
+    "react-immutable-form": "^1.1.4",
     "react-router": "^6.22.3",
+    "rimraf": "^3.0.2",
     "x25": "^17.5.6"
   }
 }

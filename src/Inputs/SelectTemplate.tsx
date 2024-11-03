@@ -2,26 +2,26 @@
 
 import Immutable from "immutable";
 import React from "react";
-import { RawSimpleSelect, SimpleSelectProps } from "./SimpleSelect";
-import { getTemplateInfo } from "./util";
+import SimpleSelect, { SimpleSelectProps } from "./SimpleSelect";
+import { getTemplateInfo } from "./util-template";
 
 const SelectTemplateInner = (props: SimpleSelectProps) => {
   const
-    { componentProps = Immutable.Map()  } = props,
+    { componentProps = Immutable.Map<string, any>()  } = props,
     { leftClass, rightClass, label } = React.useMemo(() => (
       getTemplateInfo(componentProps)
     ), [componentProps]);
 
   return (
-    <div className="row">
+    <div className="row mt-2">
       <label className={leftClass} htmlFor={props.indexFileName}>
         {label}
       </label>
       <div className={rightClass}>
-        <RawSimpleSelect {...props} />
+        <SimpleSelect {...props} />
       </div>
     </div>
   );
 };
 
-export const RawSelectTemplate = React.memo(SelectTemplateInner);
+export default React.memo(SelectTemplateInner);

@@ -2,8 +2,8 @@
 
 import Immutable from "immutable";
 import React from "react";
-import { InputTemplatePropTypes, RawNumericInput } from "./NumericInput";
-import { getTemplateInfo } from "./util";
+import NumericInput, { InputTemplatePropTypes } from "./NumericInput";
+import { getTemplateInfo } from "./util-template";
 
 const NumericTemplateInner = (props: InputTemplatePropTypes) => {
   const
@@ -13,15 +13,15 @@ const NumericTemplateInner = (props: InputTemplatePropTypes) => {
     ), [componentProps]);
 
   return (
-    <div className="row">
+    <div className="row mt-2">
       <label className={leftClass} htmlFor={props.indexFileName}>
         {label}
       </label>
       <div className={rightClass}>
-        <RawNumericInput {...props} />
+        <NumericInput {...props} />
       </div>
     </div>
   );
 };
 
-export const RawNumericTemplate = React.memo(NumericTemplateInner);
+export default React.memo(NumericTemplateInner);

@@ -1,6 +1,7 @@
 import Immutable from "immutable";
 import React from "react";
 import { FieldRendererProps } from "react-immutable-form/types";
+import RenderCounter from "../RenderCount";
 
 export type SimpleTextareaProps = FieldRendererProps<HTMLTextAreaElement> & {
   readonly customClass?: any;
@@ -9,12 +10,16 @@ export type SimpleTextareaProps = FieldRendererProps<HTMLTextAreaElement> & {
 const 
   SimpleTextareaInner = (props: SimpleTextareaProps) => {
     const
-      { customClass, idFileName, indexFileName, data = Immutable.Map(), handleBlur, handleChange, handleFocus } = props,
-      renderCount = React.useRef(0),
+      { idFileName, indexFileName, data = Immutable.Map(), handleBlur, handleChange, handleFocus } = props,
       value = data.get("value") || "",
       meta = data.get("meta") || Immutable.Map(),
       theError = meta.get("theError") as string | undefined,
       isTouched = meta.get("isTouched") as boolean,
+      
+      customClass = React.useMemo(() => (
+        props.componentProps?.get("customClass") || ""
+      ), [props.componentProps]),
+    
       onFocus = (event : React.FocusEvent<HTMLTextAreaElement, Element>) => {
         if (typeof props.customOnFocus === "function") {
           props.customOnFocus(event, handleFocus, idFileName, indexFileName);
@@ -33,20 +38,21 @@ const
         if (typeof props.customOnChange === "function") {
           props.customOnChange(event, handleChange, idFileName, indexFileName);
         } else {
-          handleChange(idFileName, event.target.value, indexFileName);
+          const 
+            hasParser = typeof props.parse === "function",
+            rawValue = event.target.value,
+            parsedValue = hasParser ? props.parse(rawValue) : rawValue;
+
+          handleChange(idFileName, parsedValue, indexFileName);
         }
       },
       hasError = typeof theError !== "undefined",
       showError = isTouched && hasError,
       theClass = `${showError ? "is-invalid" : ""} ${customClass ? customClass : ""} form-control`;
 
-    React.useEffect(() => {
-      renderCount.current += 1;
-    });
-
     return (
       <>
-        <span className="badge text-bg-primary">{renderCount.current}</span>
+        {process.env.NODE_ENV !== "production" && (props.showRenderCounts ? <RenderCounter /> : null)}
         <textarea
           className={theClass}
           disabled={props.disabled}
@@ -67,4 +73,4 @@ const
     );
   };
 
-export const RawSimpleTextarea = React.memo(SimpleTextareaInner);
+export default React.memo(SimpleTextareaInner);

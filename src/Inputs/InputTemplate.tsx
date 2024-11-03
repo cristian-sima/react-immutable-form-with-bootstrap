@@ -2,12 +2,12 @@
 
 import Immutable from "immutable";
 import React from "react";
-import { RawSimpleInput, SimpleInputProps } from "./SimpleInput";
-import { getTemplateInfo } from "./util";
+import SimpleInput, { SimpleInputProps } from "./SimpleInput";
+import { getTemplateInfo } from "./util-template";
 
 type InputTemplatePropTypes = SimpleInputProps
 
-export const RawInputTemplate = (props: InputTemplatePropTypes) => {
+const RawInputTemplate = (props: InputTemplatePropTypes) => {
   const
     { componentProps = Immutable.Map()  } = props,
     { leftClass, rightClass, label } = React.useMemo(() => (
@@ -15,13 +15,15 @@ export const RawInputTemplate = (props: InputTemplatePropTypes) => {
     ), [componentProps]);
 
   return (
-    <div className="row">
+    <div className="row mt-2">
       <label className={leftClass} htmlFor={props.indexFileName}>
         {label}
       </label>
       <div className={rightClass}>
-        <RawSimpleInput {...props} />
+        <SimpleInput {...props} />
       </div>
     </div>
   );
 };
+
+export default RawInputTemplate;

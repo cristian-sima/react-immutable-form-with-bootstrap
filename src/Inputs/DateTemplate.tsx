@@ -2,8 +2,8 @@
 
 import Immutable from "immutable";
 import React from "react";
-import { DateTemplatePropTypes, RawDateInput } from "./DateInput";
-import { getTemplateInfo } from "./util";
+import DateInput, { DateTemplatePropTypes } from "./DateInput";
+import { getTemplateInfo } from "./util-template";
 
 const DateTemplateInner = (props: DateTemplatePropTypes) => {
   const
@@ -15,12 +15,12 @@ const DateTemplateInner = (props: DateTemplatePropTypes) => {
     ), [componentProps]);
 
   return (
-    <div className="row">
+    <div className="row mt-2">
       <label className={leftClass} htmlFor={props.indexFileName}>
         {label}
       </label>
       <div className={rightClass}>
-        <RawDateInput {...props} />
+        <DateInput {...props} />
         {!props.hideError && hasError ? (
           <div className="invalid-feedback">
             {theError}
@@ -31,4 +31,4 @@ const DateTemplateInner = (props: DateTemplatePropTypes) => {
   );
 };
 
-export const RawDateTemplate = React.memo(DateTemplateInner);
+export default React.memo(DateTemplateInner);

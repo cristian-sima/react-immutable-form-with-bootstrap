@@ -4,17 +4,17 @@ import React from "react";
 import DatePicker from "react-datepicker";
 import { FieldRendererProps, HandleChangeFunc } from "react-immutable-form/types";
 import { dateToGoFormat, golangDateToMoment } from "x25/utility";
+import RenderCounter from "../RenderCount";
 
 export type DateTemplatePropTypes = FieldRendererProps<HTMLInputElement> & {
   readonly customClass?: any;
   readonly customOnChange: (date : Date, handleDateChanged : () => void, handleChange : HandleChangeFunc) => any;
 };
 
-export const 
+const 
   DateInputInner = (props: DateTemplatePropTypes) => {
     const
       { hideError, idFileName, customClass, indexFileName, data = Immutable.Map() } = props,
-      renderCount = React.useRef(0),
       value = data.get("value") || "",
       meta = data.get("meta") || Immutable.Map(),
       theError = meta.get("theError") as string | undefined,
@@ -66,13 +66,9 @@ export const
         }
       };
 
-
-    React.useEffect(() => {
-      renderCount.current += 1;
-    });
-
     return (
       <>
+        {process.env.NODE_ENV !== "production" && (props.showRenderCounts ? <RenderCounter /> : null)}
         <DatePicker
           className={theClass}
           dateFormat="dd.MM.yyyy"
@@ -94,4 +90,4 @@ export const
     );
   };
 
-export const RawDateInput = React.memo(DateInputInner);
+export default React.memo(DateInputInner);
