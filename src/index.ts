@@ -2,7 +2,7 @@ export { default as formUtils } from "./form-utils";
 
 export { default as onErrors } from "./bootstrap/onErrors";
 
-export { default as rawCreateFormPromter } from "./create-form-prompt";
+export { default as createFormPromter } from "./create-form-prompt";
 
 export { default as CaptchaBox } from "./Inputs/Custom/CaptchaBox";
 export { default as DateInput } from "./Inputs/DateInput";

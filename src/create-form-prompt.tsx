@@ -1,19 +1,30 @@
 /* eslint-disable no-alert */
+import { History } from "history";
 import React, { useCallback, useEffect, useState } from "react";
 import { language } from "react-immutable-form";
 import { useLocation, useNavigate } from "react-router";
-
 
 const
   { getWords } = language,
 
   /**
- * Created a FormPromter component, given a history value
+ * Prevents the user from exiting a form without saving.
  *
- * @param {*} history The History value from react-router
+ * ### Example
+ * ```typescript
+ * export const FormPrompt = rawCreateFormPrompter(history);
+ * ```
+ *
+ * ### Usage
+ * ```typescript
+ * const isDirty = form.management.get("dirtyFields")?.size !== 0;
+ * <FormPrompt dirty={isDirty} />;
+ * ```
+ *
+ * @param {*} history - The History object from react-router.
  * @returns {JSX.Element | null} The FormPrompt component.
  */
-  rawCreateFormPromter = (history : any) => {
+  rawCreateFormPromter = (history : History) => {
     const
       useBlocker = (blocker : any, when = true) => {
         React.useEffect(() => {

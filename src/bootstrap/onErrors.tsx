@@ -101,6 +101,16 @@ const
     } 
     return input;
   },
+  /**
+   * Displays a formatted error message list when there are errors in the form.
+   * 
+   * This function generates a component containing error messages and invokes a callback with the rendered result.
+   * The component displays a message prompting the user to check the errors, followed by a scrollable list of error details.
+   * A clickable message is also shown, indicating how to hide the error list.
+   *
+   * @param {function} cb - A callback function that receives the generated error display component as an argument.
+   * @returns {function} A function that accepts an `Immutable.Map<string, any>` of errors and, if errors exist, renders them and passes the result to `cb`.
+   */
   rawOnErrors = (cb : (node : any) => any) =>  (errors : Immutable.Map<string, any>) => {
     if (errors.size === 0) {
       return;
