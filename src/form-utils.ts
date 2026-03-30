@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { notifyError, notifyWarning } from "x25/actions.js";
-import { onErrors } from ".";
+import { notifyError, notifyWarning } from "x25/actions";
+import { onErrors } from "./index";
 
 const 
   useOnSubmitWithDispatch = () => {
