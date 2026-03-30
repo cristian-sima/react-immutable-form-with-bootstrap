@@ -59,7 +59,7 @@ const
           }, []),
 
           handleBlockedNavigation = useCallback(
-            (nextLocation) => {
+            (nextLocation: any) => {
               const 
                 locationChanged = nextLocation.location.pathname !== location.pathname,
                 didNotConfirmed = !confirmedNavigation,

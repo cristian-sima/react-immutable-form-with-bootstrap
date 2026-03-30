@@ -2,7 +2,7 @@ import { ro } from "date-fns/locale";
 import Immutable from "immutable";
 import React from "react";
 import DatePicker from "react-datepicker";
-import { FieldRendererProps, HandleChangeFunc } from "react-immutable-form/types";
+import type { FieldRendererProps, HandleChangeFunc } from "react-immutable-form/types";
 import { dateToGoFormat, golangDateToMoment } from "x25/utility";
 import RenderCounter from "../RenderCount";
 

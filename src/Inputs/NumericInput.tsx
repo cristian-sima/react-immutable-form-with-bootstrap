@@ -2,7 +2,7 @@
 
 import Immutable from "immutable";
 import React from "react";
-import { HandleBlurFunc, HandleChangeFunc, ID_FieldName, INDEX_FieldName } from "react-immutable-form/types";
+import type { HandleBlurFunc, HandleChangeFunc, ID_FieldName, INDEX_FieldName } from "react-immutable-form/types";
 import { formatZeroValue } from "x25/utility";
 import RenderCounter from "../RenderCount";
 import { SimpleInputProps } from "./SimpleInput";

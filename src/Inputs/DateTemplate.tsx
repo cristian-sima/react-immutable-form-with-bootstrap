@@ -23,7 +23,7 @@ const DateTemplateInner = (props: DateTemplatePropTypes) => {
         <DateInput {...props} />
         {!props.hideError && hasError ? (
           <div className="invalid-feedback">
-            {theError}
+            {theError as React.ReactNode}
           </div>
         ) : null}
       </div>

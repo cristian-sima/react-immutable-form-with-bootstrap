@@ -1,6 +1,6 @@
 import Immutable from "immutable";
 import React from "react";
-import { FieldRendererProps } from "react-immutable-form/types";
+import type { FieldRendererProps } from "react-immutable-form/types";
 import RenderCounter from "../RenderCount";
 
 export type SimpleTextareaProps = FieldRendererProps<HTMLTextAreaElement> & {

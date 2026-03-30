@@ -1,7 +1,7 @@
 import Immutable from "immutable";
 import React from "react";
 import { language } from "react-immutable-form";
-import { FieldRendererProps } from "react-immutable-form/types";
+import type { FieldRendererProps } from "react-immutable-form/types";
 import RenderCounter from "../RenderCount";
 
 const { getWords } = language;

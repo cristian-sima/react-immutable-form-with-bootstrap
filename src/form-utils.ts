@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { notifyError, notifyWarning } from "x25/actions";
+import { notifyError, notifyWarning } from "x25/actions.js";
 import { onErrors } from ".";
 
 const 
