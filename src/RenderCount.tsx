@@ -1,6 +1,6 @@
 import React from "react";
 
-const RenderCounter: React.FC = () => {
+const RenderCounter = () => {
   const renderCount = React.useRef(0);
 
   React.useEffect(() => {
