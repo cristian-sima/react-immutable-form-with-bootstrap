@@ -1,6 +1,7 @@
 {
     "ignorePaths": [
-        "./src/utility/languages/ro.ts"
+        "./src/utility/languages/ro.ts",
+        "node_modules_bak/**"
     ],
     "words": [
         "acord",
