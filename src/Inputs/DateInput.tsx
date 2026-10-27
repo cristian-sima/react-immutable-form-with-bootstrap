@@ -1,3 +1,4 @@
+import { isValid } from "date-fns";
 import { ro } from "date-fns/locale";
 import Immutable from "immutable";
 import React from "react";
@@ -28,11 +29,9 @@ const
       theClass = `${showError ? "is-invalid" : ""} ${customClass ? customClass : defaultClass}`,
 
       theValue = React.useMemo(() => {
-        const momentObj = golangDateToMoment(value);
+        const selectedDate = golangDateToMoment(value);
 
-        if (momentObj.isValid()) {
-          const selectedDate = momentObj.toDate();
-
+        if (isValid(selectedDate)) {
           selectedDate.setHours(0, 0, 0, 0);
           return selectedDate;
         }
